@@ -1,6 +1,6 @@
 ---
-cloud_controller_uri: <%= node['cloudfoundry_cloud_controller']['server']['api_uri'] %>
-external_uri: <%= node['cloudfoundry_service_broker']['host'] %>.<%= node['cloudfoundry_cloud_controller']['server']['domain'] %>
+cloud_controller_uri: <%= cloud_controller_url %>
+external_uri: <%= node['cloudfoundry_service_broker']['host'] %>.<%= cloud_controller_domain %>
 
 index: <%= node['cloudfoundry_service_broker']['index'] %>
 token: <%= node['cloudfoundry_common']['service_token'] %>
@@ -8,6 +8,6 @@ logging:
   level: <%= node['cloudfoundry_service_broker']['log_level'] %>
   file: <%= node['cloudfoundry_service_broker']['log_file'] %>
 
-mbus: nats://<%= node['nats_server']['user'] %>:<%= node['nats_server']['password'] %>@<%= node['cloudfoundry_common']['nats_server']['host'] %>:<%= node['cloudfoundry_common']['nats_server']['port'] %>/
+mbus: <%= cf_mbus_url %>
 pid: <%= node['cloudfoundry_service_broker']['pid_file'] %>
 local_db: sqlite3:<%= node['cloudfoundry_service_broker']['base_dir'] %>/service_broker.db
