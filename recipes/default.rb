@@ -17,27 +17,14 @@
 # limitations under the License.
 #
 
-install_path = File.join(node['cloudfoundry_common']['vcap_services']['install_path'], "service_broker")
-
-cloudfoundry_common_source "service_broker" do
-  path          install_path
-  repository    node['cloudfoundry_common']['vcap_services']['repo']
-  reference     node['cloudfoundry_common']['vcap_services']['reference']
-  subdirectory  "service_broker"
-end
-
-template "#{node['cloudfoundry_common']['config_dir']}/service_broker-pre_defined_services.yml" do
+template "#{node['cloudfoundry']['config_dir']}/service_broker-pre_defined_services.yml" do
   source   "pre_defined_services.yml.erb"
-  owner    node['cloudfoundry_common']['user']
+  owner    node['cloudfoundry']['user']
   mode     "0644"
 end
 
-cloudfoundry_common_component "service_broker" do
-  install_path  File.join(install_path, "service_broker")
-  bin_file      File.join(install_path, "service_broker", "bin", "service_broker")
-  pid_file      node['cloudfoundry_service_broker']['pid_file']
-  log_file      node['cloudfoundry_service_broker']['log_file']
-  extra_args    "-p #{node['cloudfoundry_common']['config_dir']}/service_broker-pre_defined_services.yml"
+cloudfoundry_service_component "service_broker" do
+  service_name  "service_broker"
+  extra_args    "-p #{node['cloudfoundry']['config_dir']}/service_broker-pre_defined_services.yml"
   action        [:create, :enable]
-  subscribes    :restart, resources("cloudfoundry-common_source" => "service_broker")
 end

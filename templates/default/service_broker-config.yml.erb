@@ -3,11 +3,11 @@ cloud_controller_uri: <%= cloud_controller_url %>
 external_uri: <%= node['cloudfoundry_service_broker']['host'] %>.<%= cloud_controller_domain %>
 
 index: <%= node['cloudfoundry_service_broker']['index'] %>
-token: <%= node['cloudfoundry_common']['service_token'] %>
+token: <%= node['cloudfoundry']['service_token'] %>
 logging:
   level: <%= node['cloudfoundry_service_broker']['log_level'] %>
-  file: <%= node['cloudfoundry_service_broker']['log_file'] %>
+  file: <%= @log_file %>
 
 mbus: <%= cf_mbus_url %>
-pid: <%= node['cloudfoundry_service_broker']['pid_file'] %>
+pid: <%= @pid_file %>
 local_db: sqlite3:<%= node['cloudfoundry_service_broker']['base_dir'] %>/service_broker.db
