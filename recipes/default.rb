@@ -17,6 +17,8 @@
 # limitations under the License.
 #
 
+node.default['cloudfoundry_service_broker']['base_dir'] = File.join(node['cloudfoundry']['services_dir'], "service_broker")
+
 template "#{node['cloudfoundry']['config_dir']}/service_broker-pre_defined_services.yml" do
   source   "pre_defined_services.yml.erb"
   owner    node['cloudfoundry']['user']

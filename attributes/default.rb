@@ -6,6 +6,3 @@ default['cloudfoundry_service_broker']['index'] = 0
 
 # Log level for the service_broker service.
 default['cloudfoundry_service_broker']['log_level'] = "info"
-
-# Base directory for instance-specific data
-default['cloudfoundry_service_broker']['base_dir'] = File.join(node['cloudfoundry']['services_dir'], "service_broker")
