@@ -17,16 +17,23 @@
 # limitations under the License.
 #
 
-node.default['cloudfoundry_service_broker']['base_dir'] = File.join(node['cloudfoundry']['services_dir'], "service_broker")
+node.default['cloudfoundry_service_broker']['base_dir'] = File.join(node['cloudfoundry_service']['base_dir'], "service_broker")
 
-template "#{node['cloudfoundry']['config_dir']}/service_broker-pre_defined_services.yml" do
-  source   "pre_defined_services.yml.erb"
-  owner    node['cloudfoundry']['user']
-  mode     "0644"
+service_rbenv do
+  namespace 'cloudfoundry_service_broker'
+  component 'default' # XXX
 end
+
+include_recipe "cloudfoundry_service::dependencies"
 
 cloudfoundry_service_component "service_broker" do
   service_name  "service_broker"
   extra_args    "-p #{node['cloudfoundry']['config_dir']}/service_broker-pre_defined_services.yml"
   action        [:create, :enable]
+end
+
+template "#{node['cloudfoundry']['config_dir']}/service_broker-pre_defined_services.yml" do
+  source   "pre_defined_services.yml.erb"
+  owner    node['cloudfoundry']['user']
+  mode     "0644"
 end
