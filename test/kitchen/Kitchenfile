@@ -1,0 +1,3 @@
+cookbook "cloudfoundry-service_broker" do
+
+end
