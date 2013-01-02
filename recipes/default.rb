@@ -28,6 +28,7 @@ include_recipe "cloudfoundry_service::dependencies"
 
 cloudfoundry_service_component "service_broker" do
   service_name  "service_broker"
+  ruby_version  node['cloudfoundry_service_broker']['default']['ruby_version']
   extra_args    "-p #{node['cloudfoundry']['config_dir']}/service_broker-pre_defined_services.yml"
   action        [:create, :enable]
 end
