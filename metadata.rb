@@ -10,6 +10,5 @@ version          "1.0.0"
   supports os
 end
 
-%w( cloudfoundry cloudfoundry_service ).each do |cb|
-  depends cb
-end
+depends "cloudfoundry"
+depends "cloudfoundry_service", "~> 1.2.0"
